@@ -1,18 +1,18 @@
 USE dbRecruta;
 GO
 
-IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_tabAnimais_tabPedido')
+IF NOT EXISTS (SELECT 1 FROM sys.foreign_keys WHERE name = 'FK_Animals_Orders')
 BEGIN
-    ALTER TABLE dbo.tabAnimais
-        ADD CONSTRAINT FK_tabAnimais_tabPedido
-        FOREIGN KEY (CodPedido) REFERENCES dbo.tabPedido (CodPedido);
+    ALTER TABLE dbo.Animals
+        ADD CONSTRAINT FK_Animals_Orders
+        FOREIGN KEY (OrderId) REFERENCES dbo.Orders (OrderId);
 END
 GO
 
 IF NOT EXISTS (SELECT 1 FROM sys.indexes
-               WHERE name = 'IX_tabAnimais_CodPedido'
-                 AND object_id = OBJECT_ID('dbo.tabAnimais'))
+               WHERE name = 'IX_Animals_OrderId'
+                 AND object_id = OBJECT_ID('dbo.Animals'))
 BEGIN
-    CREATE INDEX IX_tabAnimais_CodPedido ON dbo.tabAnimais (CodPedido);
+    CREATE INDEX IX_Animals_OrderId ON dbo.Animals (OrderId);
 END
 GO

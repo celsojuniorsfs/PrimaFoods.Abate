@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PrimaFoods.Abate.Domain\PrimaFoods.Abate.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

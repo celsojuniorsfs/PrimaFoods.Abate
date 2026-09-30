@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PrimaFoods.Abate.Application\PrimaFoods.Abate.Application.csproj" />
+    <ProjectReference Include="..\PrimaFoods.Abate.Infrastructure\PrimaFoods.Abate.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>

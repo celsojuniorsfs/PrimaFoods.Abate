@@ -1,4 +1,10 @@
 <Solution>
+  <Folder Name="/database/">
+    <File Path="database/01_create_base.sql" />
+    <File Path="database/02_foreign_keys.sql" />
+    <File Path="database/03_create_AnimalPayments.sql" />
+    <File Path="database/04_spCalculateAnimalPayments.sql" />
+  </Folder>
   <Folder Name="/src/">
     <Project Path="src/PrimaFoods.Abate.Application/PrimaFoods.Abate.Application.csproj" Id="8a8a908f-959a-4c0e-894f-45b016e092d4" />
     <Project Path="src/PrimaFoods.Abate.Domain/PrimaFoods.Abate.Domain.csproj" />

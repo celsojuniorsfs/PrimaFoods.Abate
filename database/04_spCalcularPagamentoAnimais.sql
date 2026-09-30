@@ -23,15 +23,15 @@ BEGIN
         DELETE FROM dbo.tabPagamentoAnimais;
 
         INSERT INTO dbo.tabPagamentoAnimais
-            (Animal, codPedido, Sexo, qtdDentes, Peso, QtdArrobas, ValorArrobaBase,
+            (Animal, CodPedido, Sexo, QtdDentes, Peso, QtdArrobas, ValorArrobaBase,
              ValorBase, ValorAgio, ValorDesagio, ValorPagar, TipoAjuste, MotivoAjuste, DataCalculo)
         SELECT
              a.Animal
-            ,a.codPedido
+            ,a.CodPedido
             ,a.Sexo
-            ,a.qtdDentes
-            ,a.peso
-            ,CAST(a.peso / @KgPorArroba AS NUMERIC(18,4))
+            ,a.QtdDentes
+            ,a.Peso
+            ,CAST(a.Peso / @KgPorArroba AS NUMERIC(18,4))
             ,preco.ValorArrobaBase
             ,base.ValorBase
             ,ajuste.ValorAgio
@@ -41,15 +41,15 @@ BEGIN
             ,CASE tipo.TipoAjuste
                  WHEN 'A' THEN @MotivoAgio
                  WHEN 'D' THEN @MotivoDesagio
-                 ELSE CONCAT('Sem ágio ou deságio: animal com ', a.qtdDentes, ' dentes')
+                 ELSE CONCAT('Sem ágio ou deságio: animal com ', a.QtdDentes, ' dentes')
              END
             ,@DataCalculo
         FROM dbo.tabAnimais AS a
         CROSS APPLY (SELECT CASE a.Sexo WHEN 'M' THEN @ValorArrobaMacho
                                         ELSE @ValorArrobaFemea END AS ValorArrobaBase) AS preco
-        CROSS APPLY (SELECT CAST(a.peso * preco.ValorArrobaBase / @KgPorArroba AS NUMERIC(18,2)) AS ValorBase) AS base
-        CROSS APPLY (SELECT CASE WHEN a.qtdDentes = 0  THEN 'A'
-                                 WHEN a.qtdDentes >= 6 THEN 'D'
+        CROSS APPLY (SELECT CAST(a.Peso * preco.ValorArrobaBase / @KgPorArroba AS NUMERIC(18,2)) AS ValorBase) AS base
+        CROSS APPLY (SELECT CASE WHEN a.QtdDentes = 0  THEN 'A'
+                                 WHEN a.QtdDentes >= 6 THEN 'D'
                                  ELSE 'N' END AS TipoAjuste) AS tipo
         CROSS APPLY (SELECT CAST(CASE WHEN tipo.TipoAjuste = 'A'
                                       THEN base.ValorBase * @PercentualAgio / 100
@@ -58,8 +58,8 @@ BEGIN
                                       THEN base.ValorBase * @PercentualDesagio / 100
                                       ELSE 0 END AS NUMERIC(18,2)) AS ValorDesagio) AS ajuste
         WHERE a.Sexo IN ('M', 'F')
-          AND a.peso IS NOT NULL
-          AND a.qtdDentes IS NOT NULL;
+          AND a.Peso IS NOT NULL
+          AND a.QtdDentes IS NOT NULL;
 
         SET @QtdProcessados = @@ROWCOUNT;
 

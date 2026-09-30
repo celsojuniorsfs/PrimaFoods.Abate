@@ -6,9 +6,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PrimaFoods.Abate.Application\PrimaFoods.Abate.Application.csproj" />
-    <ProjectReference Include="..\PrimaFoods.Abate.Infrastructure\PrimaFoods.Abate.Infrastructure.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -1,8 +1,8 @@
-﻿using PrimaFoods.Abate.Domain.Enums;
+using PrimaFoods.Abate.Domain.Enums;
 
-namespace PrimaFoods.Abate.Domain.Entities;
+namespace PrimaFoods.Abate.Application.Models;
 
-public sealed class AnimalPayment
+public sealed class AnimalPaymentView
 {
     public int AnimalId { get; init; }
     public int OrderId { get; init; }

@@ -11,10 +11,16 @@
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="10.0.12" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.12" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="10.0.12" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PrimaFoods.Abate.Domain\PrimaFoods.Abate.Domain.csproj" />
+    <InternalsVisibleTo Include="PrimaFoods.Abate.IntegrationTests" />
+    <InternalsVisibleTo Include="PrimaFoods.Abate.UnitTests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PrimaFoods.Abate.Application\PrimaFoods.Abate.Application.csproj" />
   </ItemGroup>
 
 </Project>

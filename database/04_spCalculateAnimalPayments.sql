@@ -16,6 +16,7 @@ BEGIN
     DECLARE @PremiumReason  VARCHAR(100) = CONCAT('Ágio de ', FORMAT(@PremiumPercentage, '0.##'), '%: animal com 0 dentes');
     DECLARE @DiscountReason VARCHAR(100) = CONCAT('Deságio de ', FORMAT(@DiscountPercentage, '0.##'), '%: animal com 6 ou mais dentes');
     DECLARE @ProcessedCount INT;
+    DECLARE @SkippedCount   INT;
 
     BEGIN TRY
         BEGIN TRANSACTION;
@@ -63,6 +64,9 @@ BEGIN
 
         SET @ProcessedCount = @@ROWCOUNT;
 
+        -- Animais com sexo fora de M/F, peso ou dentes ausentes não geram pagamento.
+        SELECT @SkippedCount = COUNT(*) - @ProcessedCount FROM dbo.Animals;
+
         COMMIT TRANSACTION;
     END TRY
     BEGIN CATCH
@@ -72,6 +76,6 @@ BEGIN
         THROW;
     END CATCH
 
-    SELECT @ProcessedCount AS ProcessedAnimals;
+    SELECT @ProcessedCount AS ProcessedAnimals, @SkippedCount AS SkippedAnimals;
 END
 GO

@@ -1,6 +1,8 @@
-﻿namespace PrimaFoods.Abate.Application.UseCases.AnimalPayments.Calculate;
+using PrimaFoods.Abate.Application.Models;
+
+namespace PrimaFoods.Abate.Application.UseCases.AnimalPayments.Calculate;
 
 public interface ICalculateAnimalPaymentsUseCase
 {
-    Task<int> ExecuteAsync(CancellationToken cancellationToken = default);
+    Task<CalculationResult> ExecuteAsync(CancellationToken cancellationToken = default);
 }

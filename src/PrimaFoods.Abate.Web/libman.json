@@ -3,6 +3,22 @@
   "defaultProvider": "jsdelivr",
   "libraries": [
     {
+      "library": "@adminkit/core@3.5.0",
+      "destination": "wwwroot/lib/adminkit",
+      "files": [
+        "dist/css/app.css",
+        "dist/js/app.js"
+      ]
+    },
+    {
+      "library": "notyf@3.10.0",
+      "destination": "wwwroot/lib/notyf",
+      "files": [
+        "notyf.min.css",
+        "notyf.min.js"
+      ]
+    },
+    {
       "library": "datatables.net@2.3.4",
       "destination": "wwwroot/lib/datatables.net",
       "files": [

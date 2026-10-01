@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="PrimaFoods.Abate.UnitTests" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PrimaFoods.Abate.Domain\PrimaFoods.Abate.Domain.csproj" />
   </ItemGroup>
 

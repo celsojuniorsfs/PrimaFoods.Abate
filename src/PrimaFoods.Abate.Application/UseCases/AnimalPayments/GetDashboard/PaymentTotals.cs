@@ -1,5 +1,5 @@
 ﻿using PrimaFoods.Abate.Application.Common;
-using PrimaFoods.Abate.Domain.Entities;
+using PrimaFoods.Abate.Application.Models;
 
 namespace PrimaFoods.Abate.Application.UseCases.AnimalPayments.GetDashboard;
 
@@ -12,7 +12,7 @@ public sealed record PaymentTotals(
     decimal TotalAmount,
     decimal ArrobaUnitPrice)
 {
-    public static PaymentTotals From(IReadOnlyCollection<AnimalPayment> payments)
+    public static PaymentTotals From(IReadOnlyCollection<AnimalPaymentView> payments)
     {
         var totalArrobas = payments.Sum(p => p.Arrobas);
         var totalAmount = payments.Sum(p => p.AmountToPay);

@@ -1,9 +1,10 @@
-﻿using PrimaFoods.Abate.Domain.Repositories;
+using PrimaFoods.Abate.Application.Abstractions;
+using PrimaFoods.Abate.Application.Models;
 
 namespace PrimaFoods.Abate.Application.UseCases.AnimalPayments.Calculate;
 
-public sealed class CalculateAnimalPaymentsUseCase(IAnimalPaymentRepository repository) : ICalculateAnimalPaymentsUseCase
+public sealed class CalculateAnimalPaymentsUseCase(IPaymentCalculator calculator) : ICalculateAnimalPaymentsUseCase
 {
-    public Task<int> ExecuteAsync(CancellationToken cancellationToken = default) 
-        => repository.CalculateAsync(cancellationToken);
+    public Task<CalculationResult> ExecuteAsync(CancellationToken cancellationToken = default)
+        => calculator.CalculateAsync(cancellationToken);
 }

@@ -1,4 +1,4 @@
-﻿using PrimaFoods.Abate.Domain.Entities;
+﻿using PrimaFoods.Abate.Application.Models;
 using PrimaFoods.Abate.Domain.Enums;
 
 namespace PrimaFoods.Abate.Application.UseCases.AnimalPayments.GetDashboard;
@@ -19,7 +19,7 @@ public sealed record AnimalPaymentDetail(
     AdjustmentType AdjustmentType,
     string AdjustmentReason)
 {
-    public static AnimalPaymentDetail From(AnimalPayment payment) => new(
+    public static AnimalPaymentDetail From(AnimalPaymentView payment) => new(
         payment.AnimalId,
         payment.OrderId,
         payment.Supplier,

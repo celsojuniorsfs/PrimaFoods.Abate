@@ -58,9 +58,12 @@
         </div>
     </div>
 
-    @if (TempData["SuccessMessage"] is string successMessage)
+    @if (TempData["SuccessMessage"] is string || TempData["WarningMessage"] is string || TempData["ErrorMessage"] is string)
     {
-        <div id="flash-messages" hidden data-success="@successMessage"></div>
+        <div id="flash-messages" hidden
+             data-success="@TempData["SuccessMessage"]"
+             data-warning="@TempData["WarningMessage"]"
+             data-error="@TempData["ErrorMessage"]"></div>
     }
 
     <script src="~/lib/adminkit/dist/js/app.js"></script>

@@ -27,8 +27,6 @@ app.UseRequestLocalization(new RequestLocalizationOptions()
 
 app.UseRouting();
 
-app.UseAuthorization();
-
 app.MapStaticAssets();
 
 app.MapControllerRoute(

@@ -1,14 +1,14 @@
 ﻿using PrimaFoods.Abate.Application.Common;
 using PrimaFoods.Abate.Domain.Enums;
-using PrimaFoods.Abate.Domain.Repositories;
+using PrimaFoods.Abate.Application.Abstractions;
 
 namespace PrimaFoods.Abate.Application.UseCases.AnimalPayments.GetDashboard;
 
-public sealed class GetPaymentDashboardUseCase(IAnimalPaymentRepository repository) : IGetPaymentDashboardUseCase
+public sealed class GetPaymentDashboardUseCase(IAnimalPaymentReader reader) : IGetPaymentDashboardUseCase
 {
     public async Task<PaymentDashboardResult> ExecuteAsync(CancellationToken cancellationToken = default)
     {
-        var payments = await repository.GetAllAsync(cancellationToken);
+        var payments = await reader.GetAllAsync(cancellationToken);
         var totalAnimals = payments.Count;
 
         var males = payments.Count(p => p.Sex == Sex.Male);

@@ -14,4 +14,9 @@
     <ProjectReference Include="..\PrimaFoods.Abate.Domain\PrimaFoods.Abate.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Common\" />
+    <Folder Include="UseCases\AnimalPayments\GetDashboard\" />
+  </ItemGroup>
+
 </Project>

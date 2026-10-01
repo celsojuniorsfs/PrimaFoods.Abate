@@ -134,6 +134,18 @@ public sealed class SpCalculateAnimalPaymentsTests(SqlServerFixture db) : IAsync
     }
 
     [Fact]
+    public async Task AnimalWithoutOrder_IsSkipped()
+    {
+        await db.AddAnimalAsync(1, 1, "M", 2, 300m);
+        await db.AddAnimalAsync(2, null, "M", 2, 300m);
+
+        var result = await db.Calculator.CalculateAsync();
+
+        Assert.Equal(new CalculationResult(ProcessedAnimals: 1, SkippedAnimals: 1), result);
+        Assert.Equal(1, Assert.Single(await db.Reader.GetAllAsync()).AnimalId);
+    }
+
+    [Fact]
     public async Task Recalculating_ReplacesPreviousResults_WithoutDuplicates()
     {
         await db.AddAnimalAsync(1, 1, "M", 2, 300m);

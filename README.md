@@ -111,6 +111,27 @@ Preços e percentuais são configuráveis na seção `Payment` do `appsettings.j
 
 Cada cálculo apaga e regrava `dbo.AnimalPayments`; só o último cálculo é mantido. Animais com sexo fora de M/F, ou sem peso, dentes ou pedido, não geram pagamento; a tela mostra um aviso com quantos foram ignorados.
 
+### Premissas
+
+O enunciado deixa alguns pontos em aberto. Estas foram as interpretações adotadas:
+
+- **Arroba de 15 kg.** O enunciado fala em peso multiplicado por valor, mas o valor é por arroba.
+- **Ágio e deságio incidem sobre o valor base do próprio animal.**
+- **Arredondamento em 2 casas por animal.** O ajuste é calculado sobre o valor base já arredondado, então a soma das linhas bate com o total.
+- **1, 3 e 5 dentes** não aparecem no enunciado, que cobre 0, 2 ou 4 e 6 ou mais. Foram tratados como sem ajuste. Nenhum animal da base tem esses valores.
+- **Valor unitário da @ no resumo = valor total ÷ arrobas**, ou seja, o valor efetivo, que já inclui ágio e deságio. No pedido 1, os machos saem a R$ 104,10 e não a R$ 100,00.
+- **Animais com dados inválidos** (sexo fora de M/F, sem peso, sem dentes ou sem pedido) são ignorados e contados à parte.
+
+## Observações sobre o script original
+
+O script recebido está intacto em `database/original/Script_Teste_SQLServer.sql`. O que a aplicação executa são os scripts de `database/`, com estas diferenças:
+
+- O original começa com `\c dbRecruta`, que é comando do `psql` (PostgreSQL), e não tem separadores `GO`. Assim, não roda no SQL Server. O `01_create_base.sql` cria o banco, usa `USE` e separa os lotes com `GO`.
+- O comentário `--criar foreing key` virou a FK `FK_Animals_Orders` (`02_foreign_keys.sql`), junto com um índice em `Animals.OrderId`, porque o SQL Server não indexa a coluna da FK sozinho.
+- **Tabelas e colunas foram traduzidas para o inglês**, para seguir o padrão do código: `tabAnimais` → `Animals`, `tabPedido` → `Orders`, `Animal` → `AnimalId`, `Sexo` → `Sex`, `codPedido` → `OrderId`, `qtdDentes` → `TeethCount`, `peso` → `Weight` e `Fornecedor` → `Supplier`. Os dados não mudaram.
+- As colunas do original aceitam `NULL`, e daí vem o tratamento de dados inválidos na procedure.
+- Alguns fornecedores vêm sem acento no próprio script ("Simo Silva", "Thom Silva", "Estevo Silva"). Foram mantidos como recebidos.
+
 ## Arquitetura
 
 ```

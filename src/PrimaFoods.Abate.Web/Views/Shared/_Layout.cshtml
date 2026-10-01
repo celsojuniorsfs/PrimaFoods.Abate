@@ -9,6 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" />
     <link rel="stylesheet" href="~/lib/adminkit/dist/css/app.css" />
+    <link rel="stylesheet" href="~/lib/notyf/notyf.min.css" />
     <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     @await RenderSectionAsync("Styles", required: false)
@@ -62,7 +63,14 @@
         </div>
     </div>
 
+    @if (TempData["SuccessMessage"] is string successMessage)
+    {
+        <div id="flash-messages" hidden data-success="@successMessage"></div>
+    }
+
     <script src="~/lib/adminkit/dist/js/app.js"></script>
+    <script src="~/lib/notyf/notyf.min.js"></script>
+    <script src="~/js/notifications.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

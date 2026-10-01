@@ -56,16 +56,6 @@ docker compose up -d
 
 Em produção, informe a connection string pela variável de ambiente `ConnectionStrings__Connection`.
 
-## Testes
-
-```bash
-dotnet test
-```
-
-Os testes de integração sobem um SQL Server próprio com Testcontainers e exigem o Docker em execução.
-
-O workflow `.github/workflows/ci.yml` roda os testes unitários e os de integração, em jobs separados, a cada pull request (para qualquer branch de destino) e a cada push para `develop` e `main`. Os resultados (`.trx`) ficam como artefatos da execução.
-
 ## Estrutura do repositório
 
 ```
@@ -152,3 +142,32 @@ A regra de pagamento (preço da arroba, ágio, deságio) é implementada **somen
 - **Por quê**: o cálculo é em lote e roda no banco, evitando trafegar todos os animais para a aplicação.
 - **Consequência**: a regra não tem teste unitário em C#. Ela deve ser coberta por testes de integração contra um SQL Server real.
 - **Alternativa descartada**: mover a regra para o Domain (`PaymentPolicy`). Pode ser reavaliada se a regra crescer ou precisar de testes sem banco.
+
+## Testes
+
+```powershell
+dotnet test
+```
+
+Também dá para rodar pelo **Gerenciador de Testes** do Visual Studio.
+
+Os testes de integração sobem um SQL Server próprio com Testcontainers e exigem o Docker em execução. Cada coleção de testes sobe o seu container, separado do banco do `docker compose`.
+
+Um dos testes de integração calcula sobre a base original, sem limpar os dados, e confere os números que a tela exibe:
+
+| Indicador | Valor |
+|---|---|
+| Animais processados | 1.128 |
+| Machos | 1.110 (98,40%) |
+| Fêmeas | 18 (1,60%) |
+| Ágio | 199 animais, R$ 36.854,01 |
+| Deságio | 188 animais, R$ 35.813,85 |
+| Total a pagar | R$ 2.134.981,91 |
+
+O workflow `.github/workflows/ci.yml` roda os testes unitários e os de integração, em jobs separados, a cada pull request (para qualquer branch de destino) e a cada push para `develop` e `main`. Os resultados (`.trx`) ficam como artefatos da execução.
+
+## Problemas conhecidos
+
+- **O container do SQL Server não sobe.** Quase sempre é a senha do `.env` fora da política do SQL Server. Confira com `docker compose logs sqlserver`.
+- **Porta 14330 ocupada.** Troque o mapeamento da porta no `docker-compose.yml` e use a mesma porta na connection string.
+- **Erro `0x800711C7` ao rodar no Windows 11.** É o Smart App Control bloqueando as DLLs recém-compiladas. Desativá-lo pode ser difícil de reverter, então prefira rodar em outra máquina ou numa VM sem o recurso.

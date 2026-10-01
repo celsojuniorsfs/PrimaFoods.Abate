@@ -11,8 +11,4 @@
     <ProjectReference Include="..\PrimaFoods.Abate.Infrastructure\PrimaFoods.Abate.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>

@@ -12,40 +12,26 @@ Painel ASP.NET Core MVC (.NET 10) para calcular e consultar o pagamento de anima
 
 ## Como rodar
 
-Os comandos abaixo estão em PowerShell. No bash, a única diferença é `cp .env.example .env` no lugar de `Copy-Item`.
+Os comandos são os mesmos em PowerShell e em bash.
 
-1. Crie o `.env` a partir do exemplo e defina a senha do `sa` em `MSSQL_SA_PASSWORD` (o arquivo não é versionado):
-
-   ```powershell
-   Copy-Item .env.example .env
-   ```
-
-   A senha precisa seguir a política do SQL Server: no mínimo 8 caracteres, com maiúscula, minúscula, número e símbolo. **Com uma senha fora da política, o container não sobe.**
-
-2. Suba o banco, que cria o `dbRecruta` e carrega os dados:
+1. Suba o banco, que cria o `dbRecruta` e carrega os dados:
 
    ```powershell
    docker compose up -d
    docker compose logs db-init   # deve terminar em "Banco pronto."
    ```
 
-3. Guarde a connection string nos user-secrets, com a mesma senha do `.env`:
-
-   ```powershell
-   dotnet user-secrets set "ConnectionStrings:Connection" "Server=localhost,14330;Database=dbRecruta;User Id=sa;Password=<senha do .env>;TrustServerCertificate=True" --project src/PrimaFoods.Abate.Web
-   ```
-
-   O `TrustServerCertificate=True` existe porque o container usa um certificado autoassinado. Vale só para o ambiente local.
-
-4. Rode a aplicação:
+2. Rode a aplicação:
 
    ```powershell
    dotnet run --project src/PrimaFoods.Abate.Web --launch-profile https
    ```
 
-   Ela abre em `https://localhost:7185`. Na tela, clique em **Processar pagamentos** para executar o cálculo.
+   Ela abre em `https://localhost:7185`. Na tela, clique em **Processar pagamentos** para executar o cálculo. No Visual Studio, basta apertar F5.
 
-No Visual Studio, o passo 3 também pode ser feito com botão direito no projeto Web → **Gerenciar Segredos do Usuário**, e o passo 4 com F5.
+A connection string de desenvolvimento já está no `appsettings.Development.json`. O `TrustServerCertificate=True` existe porque o container usa um certificado autoassinado, e vale só para o ambiente local.
+
+A senha do `sa` (`PrimaFoods@2026`) fica fixa no `docker-compose.yml` e no `appsettings.Development.json` porque o banco é local e descartável. Em produção, a connection string viria da variável de ambiente `ConnectionStrings__Connection` ou de um cofre de segredos.
 
 Para recriar o banco do zero:
 
@@ -53,8 +39,6 @@ Para recriar o banco do zero:
 docker compose down -v
 docker compose up -d
 ```
-
-Em produção, informe a connection string pela variável de ambiente `ConnectionStrings__Connection`.
 
 ## Estrutura do repositório
 
@@ -168,6 +152,7 @@ O workflow `.github/workflows/ci.yml` roda os testes unitários e os de integra�
 
 ## Problemas conhecidos
 
-- **O container do SQL Server não sobe.** Quase sempre é a senha do `.env` fora da política do SQL Server. Confira com `docker compose logs sqlserver`.
+- **Mudei a senha e o banco não aceita.** O SQL Server só define a senha do `sa` na primeira inicialização do volume. Rode `docker compose down -v` e suba de novo.
+- **Já usei user-secrets neste projeto.** Eles têm prioridade sobre o `appsettings.Development.json`. Rode `dotnet user-secrets clear --project src/PrimaFoods.Abate.Web`.
 - **Porta 14330 ocupada.** Troque o mapeamento da porta no `docker-compose.yml` e use a mesma porta na connection string.
 - **Erro `0x800711C7` ao rodar no Windows 11.** É o Smart App Control bloqueando as DLLs recém-compiladas. Desativá-lo pode ser difícil de reverter, então prefira rodar em outra máquina ou numa VM sem o recurso.

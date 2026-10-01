@@ -6,7 +6,7 @@ services:
     container_name: primafoods-abate-sqlserver
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD:?Defina MSSQL_SA_PASSWORD no arquivo .env (veja .env.example)}"
+      MSSQL_SA_PASSWORD: "PrimaFoods@2026" # apenas desenvolvimento local; mesma senha do appsettings.Development.json
       MSSQL_PID: "Developer"
       TZ: "America/Sao_Paulo"
     ports:
@@ -31,7 +31,7 @@ services:
       sqlserver:
         condition: service_healthy
     environment:
-      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD:?Defina MSSQL_SA_PASSWORD no arquivo .env (veja .env.example)}"
+      MSSQL_SA_PASSWORD: "PrimaFoods@2026" # apenas desenvolvimento local; mesma senha do appsettings.Development.json
     volumes:
       - ./database:/database:ro
     entrypoint: ["/bin/bash", "-c"]

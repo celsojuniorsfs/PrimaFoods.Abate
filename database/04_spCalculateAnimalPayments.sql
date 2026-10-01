@@ -13,8 +13,8 @@ BEGIN
 
     DECLARE @KgPerArroba    NUMERIC(5,2) = 15.00;
     DECLARE @CalculatedAt   DATETIME2(0) = SYSDATETIME();
-    DECLARE @PremiumReason  VARCHAR(100) = CONCAT('Ágio de ', FORMAT(@PremiumPercentage, '0.##'), '%: animal com 0 dentes');
-    DECLARE @DiscountReason VARCHAR(100) = CONCAT('Deságio de ', FORMAT(@DiscountPercentage, '0.##'), '%: animal com 6 ou mais dentes');
+    DECLARE @PremiumReason  VARCHAR(100) = CONCAT('Ágio de ', FORMAT(@PremiumPercentage, '0.##', 'pt-BR'), '%: animal com 0 dentes');
+    DECLARE @DiscountReason VARCHAR(100) = CONCAT('Deságio de ', FORMAT(@DiscountPercentage, '0.##', 'pt-BR'), '%: animal com 6 ou mais dentes');
     DECLARE @ProcessedCount INT;
     DECLARE @SkippedCount   INT;
 

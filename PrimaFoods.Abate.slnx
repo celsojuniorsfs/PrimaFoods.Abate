@@ -11,4 +11,8 @@
     <Project Path="src/PrimaFoods.Abate.Infrastructure/PrimaFoods.Abate.Infrastructure.csproj" Id="3da5258f-f8ca-4530-a73f-37f97870e0b1" />
     <Project Path="src/PrimaFoods.Abate.Web/PrimaFoods.Abate.Web.csproj" Id="37696092-8f7a-4293-a76e-85b72bc20600" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PrimaFoods.Abate.IntegrationTests/PrimaFoods.Abate.IntegrationTests.csproj" />
+    <Project Path="tests/PrimaFoods.Abate.UnitTests/PrimaFoods.Abate.UnitTests.csproj" />
+  </Folder>
 </Solution>

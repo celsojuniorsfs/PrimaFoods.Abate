@@ -1,44 +1,80 @@
-﻿@model PaymentDashboardResult
+@model PaymentDashboardResult
 
-<div class="row g-3 mb-4">
-    <div class="col-12 col-sm-6 col-xl-3">
-        <div class="card h-100 shadow-sm">
+<div class="row">
+    <div class="col-12 col-sm-6 col-xl-3 d-flex">
+        <div class="card flex-fill">
             <div class="card-body">
-                <h2 class="h6 text-body-secondary text-uppercase">Machos abatidos</h2>
-                <p class="fs-2 fw-semibold mb-1">@Model.Males.Count.ToString("N0")</p>
-                <p class="mb-0 text-body-secondary">@Model.Males.Percentage.ToString("N2")% de @Model.TotalAnimals.ToString("N0") animais</p>
+                <div class="row">
+                    <div class="col mt-0">
+                        <h5 class="card-title">Machos abatidos</h5>
+                    </div>
+                    <div class="col-auto">
+                        <div class="stat text-primary">
+                            <i class="align-middle" data-feather="user"></i>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="mt-1 mb-3">@Model.Males.Count.ToString("N0")</h1>
+                <div class="mb-0 text-muted">@Model.Males.Percentage.ToString("N2")% de @Model.TotalAnimals.ToString("N0") animais</div>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
-        <div class="card h-100 shadow-sm">
+    <div class="col-12 col-sm-6 col-xl-3 d-flex">
+        <div class="card flex-fill">
             <div class="card-body">
-                <h2 class="h6 text-body-secondary text-uppercase">Fêmeas abatidas</h2>
-                <p class="fs-2 fw-semibold mb-1">@Model.Females.Count.ToString("N0")</p>
-                <p class="mb-0 text-body-secondary">@Model.Females.Percentage.ToString("N2")% de @Model.TotalAnimals.ToString("N0") animais</p>
+                <div class="row">
+                    <div class="col mt-0">
+                        <h5 class="card-title">Fêmeas abatidas</h5>
+                    </div>
+                    <div class="col-auto">
+                        <div class="stat text-primary">
+                            <i class="align-middle" data-feather="user"></i>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="mt-1 mb-3">@Model.Females.Count.ToString("N0")</h1>
+                <div class="mb-0 text-muted">@Model.Females.Percentage.ToString("N2")% de @Model.TotalAnimals.ToString("N0") animais</div>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
-        <div class="card h-100 shadow-sm border-success border-start border-4">
+    <div class="col-12 col-sm-6 col-xl-3 d-flex">
+        <div class="card flex-fill">
             <div class="card-body">
-                <h2 class="h6 text-body-secondary text-uppercase">Animais com ágio</h2>
-                <p class="fs-2 fw-semibold mb-1">@Model.Premiums.Count.ToString("N0")</p>
-                <p class="mb-1 text-body-secondary">@Model.Premiums.Percentage.ToString("N2")% do total</p>
-                <p class="mb-0">@AmountHtml.Premium(Model.Premiums.TotalAmount)</p>
+                <div class="row">
+                    <div class="col mt-0">
+                        <h5 class="card-title">Animais com ágio</h5>
+                    </div>
+                    <div class="col-auto">
+                        <div class="stat text-success">
+                            <i class="align-middle" data-feather="trending-up"></i>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="mt-1 mb-3">@Model.Premiums.Count.ToString("N0")</h1>
+                <div class="mb-1 text-muted">@Model.Premiums.Percentage.ToString("N2")% do total</div>
+                <div class="mb-0">@AmountHtml.Premium(Model.Premiums.TotalAmount)</div>
             </div>
         </div>
     </div>
 
-    <div class="col-12 col-sm-6 col-xl-3">
-        <div class="card h-100 shadow-sm border-danger border-start border-4">
+    <div class="col-12 col-sm-6 col-xl-3 d-flex">
+        <div class="card flex-fill">
             <div class="card-body">
-                <h2 class="h6 text-body-secondary text-uppercase">Animais com deságio</h2>
-                <p class="fs-2 fw-semibold mb-1">@Model.Discounts.Count.ToString("N0")</p>
-                <p class="mb-1 text-body-secondary">@Model.Discounts.Percentage.ToString("N2")% do total</p>
-                <p class="mb-0">@AmountHtml.Discount(Model.Discounts.TotalAmount)</p>
+                <div class="row">
+                    <div class="col mt-0">
+                        <h5 class="card-title">Animais com deságio</h5>
+                    </div>
+                    <div class="col-auto">
+                        <div class="stat text-danger">
+                            <i class="align-middle" data-feather="trending-down"></i>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="mt-1 mb-3">@Model.Discounts.Count.ToString("N0")</h1>
+                <div class="mb-1 text-muted">@Model.Discounts.Percentage.ToString("N2")% do total</div>
+                <div class="mb-0">@AmountHtml.Discount(Model.Discounts.TotalAmount)</div>
             </div>
         </div>
     </div>

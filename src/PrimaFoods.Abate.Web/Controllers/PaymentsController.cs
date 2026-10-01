@@ -27,7 +27,7 @@ public sealed class PaymentsController : Controller
     {
         var processedAnimals = await useCase.ExecuteAsync(cancellationToken);
 
-        TempData["SucessMessage"] = $"Cálculo concluído: {processedAnimals:N0} animais processados.";
+        TempData["SuccessMessage"] = $"Cálculo concluído: {processedAnimals:N0} animais processados.";
 
         return RedirectToAction(nameof(index));
     }

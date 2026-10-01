@@ -60,11 +60,12 @@ BEGIN
                                       ELSE 0 END AS NUMERIC(18,2)) AS DiscountAmount) AS adj
         WHERE a.Sex IN ('M', 'F')
           AND a.Weight IS NOT NULL
-          AND a.TeethCount IS NOT NULL;
+          AND a.TeethCount IS NOT NULL
+          AND a.OrderId IS NOT NULL;
 
         SET @ProcessedCount = @@ROWCOUNT;
 
-        -- Animais com sexo fora de M/F, peso ou dentes ausentes não geram pagamento.
+        -- Animais com sexo fora de M/F, ou sem peso, dentes ou pedido, não geram pagamento.
         SELECT @SkippedCount = COUNT(*) - @ProcessedCount FROM dbo.Animals;
 
         COMMIT TRANSACTION;

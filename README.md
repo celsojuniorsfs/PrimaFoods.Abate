@@ -55,7 +55,7 @@ Na tela, clique em **Processar pagamentos** para executar o cálculo.
 
 Preços e percentuais são configuráveis na seção `Payment` do `appsettings.json` (`MaleArrobaPrice`, `FemaleArrobaPrice`, `PremiumPercentage`, `DiscountPercentage`) e enviados como parâmetros da stored procedure. A aplicação não sobe se os valores forem inválidos (preço ≤ 0 ou percentual fora de 0–100). Os 15 kg por arroba ficam fixos na procedure.
 
-Cada cálculo apaga e regrava `dbo.AnimalPayments`; só o último cálculo é mantido. Animais com sexo fora de M/F, ou sem peso ou dentes, não geram pagamento; a tela mostra um aviso com quantos foram ignorados.
+Cada cálculo apaga e regrava `dbo.AnimalPayments`; só o último cálculo é mantido. Animais com sexo fora de M/F, ou sem peso, dentes ou pedido, não geram pagamento; a tela mostra um aviso com quantos foram ignorados.
 
 ## Arquitetura
 

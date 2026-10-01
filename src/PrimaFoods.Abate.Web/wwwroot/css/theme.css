@@ -1,0 +1,131 @@
+/* Paleta Prima Foods sobre o AdminKit compilado (que traz o azul fixo em cada componente). */
+:root,
+[data-bs-theme=light] {
+  --pf-primary: #B82025;
+  --pf-primary-dark: #77171A;
+  --pf-primary-rgb: 184, 32, 37;
+  --pf-sidebar: #262022;
+
+  --bs-primary: var(--pf-primary);
+  --bs-primary-rgb: var(--pf-primary-rgb);
+  --bs-primary-bg-subtle: #f6dcdd;
+  --bs-primary-border-subtle: #e9b3b5;
+  --bs-primary-text-emphasis: var(--pf-primary-dark);
+  --bs-link-color: var(--pf-primary);
+  --bs-link-color-rgb: var(--pf-primary-rgb);
+  --bs-link-hover-color: var(--pf-primary-dark);
+  --bs-link-hover-color-rgb: 119, 23, 26;
+}
+
+/* Botões */
+.btn-primary {
+  --bs-btn-bg: var(--pf-primary);
+  --bs-btn-border-color: var(--pf-primary);
+  --bs-btn-hover-bg: var(--pf-primary-dark);
+  --bs-btn-hover-border-color: var(--pf-primary-dark);
+  --bs-btn-focus-shadow-rgb: var(--pf-primary-rgb);
+  --bs-btn-active-bg: var(--pf-primary-dark);
+  --bs-btn-active-border-color: var(--pf-primary-dark);
+  --bs-btn-disabled-bg: var(--pf-primary);
+  --bs-btn-disabled-border-color: var(--pf-primary);
+}
+
+/* Sidebar */
+.sidebar,
+.sidebar-content,
+.sidebar-link,
+a.sidebar-link {
+  background: var(--pf-sidebar);
+}
+
+.sidebar-item.active .sidebar-link:hover,
+.sidebar-item.active > .sidebar-link {
+  background: linear-gradient(90deg, rgba(var(--pf-primary-rgb), .25), rgba(var(--pf-primary-rgb), .1) 50%, transparent);
+  border-left-color: var(--pf-primary);
+}
+
+.sidebar-toggle:hover .hamburger,
+.sidebar-toggle:hover .hamburger:before,
+.sidebar-toggle:hover .hamburger:after {
+  background: var(--pf-primary);
+}
+
+/* Foco de campos (busca e seletor de linhas do DataTables) */
+.form-control:focus,
+.form-select:focus {
+  border-color: #dc8e91;
+  box-shadow: 0 0 0 .25rem rgba(var(--pf-primary-rgb), .25);
+}
+
+/* Abas dentro de card */
+.nav-tabs .nav-link {
+  color: var(--bs-secondary-color);
+}
+
+.nav-tabs .nav-link:hover {
+  color: var(--pf-primary);
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--pf-primary);
+  font-weight: 600;
+}
+
+/* Paginação: o app.css do AdminKit não inclui o componente, e o DataTables usa as classes do Bootstrap. */
+.pagination {
+  --pf-page-padding-x: .75rem;
+  --pf-page-padding-y: .375rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: var(--pf-page-padding-y) var(--pf-page-padding-x);
+  color: var(--pf-primary);
+  text-decoration: none;
+  background-color: var(--bs-body-bg);
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  margin-left: calc(var(--bs-border-width) * -1);
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out;
+}
+
+.page-item:first-child .page-link {
+  margin-left: 0;
+  border-top-left-radius: var(--bs-border-radius);
+  border-bottom-left-radius: var(--bs-border-radius);
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: var(--bs-border-radius);
+  border-bottom-right-radius: var(--bs-border-radius);
+}
+
+.page-link:hover {
+  z-index: 2;
+  color: var(--pf-primary-dark);
+  background-color: var(--bs-tertiary-bg);
+}
+
+.page-link:focus-visible {
+  z-index: 3;
+  outline: 0;
+  box-shadow: 0 0 0 .25rem rgba(var(--pf-primary-rgb), .25);
+}
+
+.page-item.active .page-link {
+  z-index: 3;
+  color: #fff;
+  background-color: var(--pf-primary);
+  border-color: var(--pf-primary);
+}
+
+.page-item.disabled .page-link {
+  color: var(--bs-secondary-color);
+  pointer-events: none;
+  background-color: var(--bs-body-bg);
+}

@@ -1,0 +1,45 @@
+﻿@model PaymentDashboardResult
+
+<div class="row g-3 mb-4">
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="h6 text-body-secondary text-uppercase">Machos abatidos</h2>
+                <p class="fs-2 fw-semibold mb-1">@Model.Males.Count.ToString("N0")</p>
+                <p class="mb-0 text-body-secondary">@Model.Males.Percentage.ToString("N2")% de @Model.TotalAnimals.ToString("N0") animais</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card h-100 shadow-sm">
+            <div class="card-body">
+                <h2 class="h6 text-body-secondary text-uppercase">Fêmeas abatidas</h2>
+                <p class="fs-2 fw-semibold mb-1">@Model.Females.Count.ToString("N0")</p>
+                <p class="mb-0 text-body-secondary">@Model.Females.Percentage.ToString("N2")% de @Model.TotalAnimals.ToString("N0") animais</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card h-100 shadow-sm border-success border-start border-4">
+            <div class="card-body">
+                <h2 class="h6 text-body-secondary text-uppercase">Animais com ágio</h2>
+                <p class="fs-2 fw-semibold mb-1">@Model.Premiums.Count.ToString("N0")</p>
+                <p class="mb-1 text-body-secondary">@Model.Premiums.Percentage.ToString("N2")% do total</p>
+                <p class="mb-0">@AmountHtml.Premium(Model.Premiums.TotalAmount)</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-sm-6 col-xl-3">
+        <div class="card h-100 shadow-sm border-danger border-start border-4">
+            <div class="card-body">
+                <h2 class="h6 text-body-secondary text-uppercase">Animais com deságio</h2>
+                <p class="fs-2 fw-semibold mb-1">@Model.Discounts.Count.ToString("N0")</p>
+                <p class="mb-1 text-body-secondary">@Model.Discounts.Percentage.ToString("N2")% do total</p>
+                <p class="mb-0">@AmountHtml.Discount(Model.Discounts.TotalAmount)</p>
+            </div>
+        </div>
+    </div>
+</div>

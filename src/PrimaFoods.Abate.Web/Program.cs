@@ -17,6 +17,12 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRequestLocalization(new RequestLocalizationOptions()
+    .SetDefaultCulture("pt-BR")
+    .AddSupportedCultures("pt-BR")
+    .AddSupportedUICultures("pt-BR"));
+
 app.UseRouting();
 
 app.UseAuthorization();
@@ -25,7 +31,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Payments}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 

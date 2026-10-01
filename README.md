@@ -38,7 +38,7 @@ dotnet test
 
 Os testes de integração sobem um SQL Server próprio com Testcontainers e exigem o Docker em execução.
 
-O workflow `.github/workflows/ci.yml` roda os testes unitários e os de integração, em jobs separados, a cada pull request e push para `develop` e `main`. Os resultados (`.trx`) ficam como artefatos da execução.
+O workflow `.github/workflows/ci.yml` roda os testes unitários e os de integração, em jobs separados, a cada pull request (para qualquer branch de destino) e a cada push para `develop` e `main`. Os resultados (`.trx`) ficam como artefatos da execução.
 
 Na tela, clique em **Processar pagamentos** para executar o cálculo.
 

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Prima Foods</title>
+    <script type="importmap"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" />
+    <link rel="stylesheet" href="~/lib/adminkit/dist/css/app.css" />
+    <link rel="stylesheet" href="~/lib/notyf/notyf.min.css" />
+    <link rel="stylesheet" href="~/css/theme.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+}
+<body>
+    <div class="wrapper">
+        <nav id="sidebar" class="sidebar js-sidebar">
+            <div class="sidebar-content js-simplebar">
+                <a class="sidebar-brand" asp-area="" asp-controller="Payments" asp-action="Index">
+                    <span class="align-middle">Prima Foods · Abate</span>
+                </a>
+
+                <ul class="sidebar-nav">
+                    <li class="sidebar-header">Financeiro</li>
+                    <li class="sidebar-item @(controller == "Payments" ? "active" : null)">
+                        <a class="sidebar-link" asp-area="" asp-controller="Payments" asp-action="Index">
+                            <i class="align-middle" data-feather="dollar-sign"></i>
+                            <span class="align-middle">Pagamentos</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="main">
+            <nav class="navbar navbar-expand navbar-light navbar-bg">
+                <a class="sidebar-toggle js-sidebar-toggle" role="button" aria-label="Alternar menu lateral">
+                    <i class="hamburger align-self-center"></i>
+                </a>
+            </nav>
+
+            <main class="content">
+                <div class="container-fluid p-0">
+                    @RenderBody()
+                </div>
+            </main>
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <span class="text-muted">&copy; 2026 - Prima Foods</span>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    @if (TempData["SuccessMessage"] is string || TempData["WarningMessage"] is string || TempData["ErrorMessage"] is string)
+    {
+        <div id="flash-messages" hidden
+             data-success="@TempData["SuccessMessage"]"
+             data-warning="@TempData["WarningMessage"]"
+             data-error="@TempData["ErrorMessage"]"></div>
+    }
+
+    <script src="~/lib/adminkit/dist/js/app.js"></script>
+    <script src="~/lib/notyf/notyf.min.js"></script>
+    <script src="~/js/notifications.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

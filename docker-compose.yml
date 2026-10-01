@@ -1,0 +1,55 @@
+name: primafoods-abate
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: primafoods-abate-sqlserver
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD:?Defina MSSQL_SA_PASSWORD no arquivo .env (veja .env.example)}"
+      MSSQL_PID: "Developer"
+      TZ: "America/Sao_Paulo"
+    ports:
+      - "14330:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -Q "SELECT 1" -b -o /dev/null',
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+  db-init:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: primafoods-abate-db-init
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    environment:
+      MSSQL_SA_PASSWORD: "${MSSQL_SA_PASSWORD:?Defina MSSQL_SA_PASSWORD no arquivo .env (veja .env.example)}"
+    volumes:
+      - ./database:/database:ro
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        set -e
+        SQLCMD="/opt/mssql-tools18/bin/sqlcmd -S sqlserver -U sa -P $$MSSQL_SA_PASSWORD -C -b -f 65001"
+        EXISTE=$$($$SQLCMD -h -1 -W -Q "SET NOCOUNT ON; SELECT COUNT(*) FROM sys.databases WHERE name = 'dbRecruta'")
+        if [ "$$EXISTE" = "0" ]; then
+          echo "Criando a base dbRecruta..."
+          $$SQLCMD -i /database/01_create_base.sql
+        fi
+        for SCRIPT in /database/0[2-9]_*.sql; do
+          echo "Executando $$SCRIPT..."
+          $$SQLCMD -i "$$SCRIPT"
+        done
+        echo "Banco pronto."
+    restart: "no"
+
+volumes:
+  sqlserver-data:

@@ -1,0 +1,18 @@
+<Solution>
+  <Folder Name="/database/">
+    <File Path="database/01_create_base.sql" />
+    <File Path="database/02_foreign_keys.sql" />
+    <File Path="database/03_create_AnimalPayments.sql" />
+    <File Path="database/04_spCalculateAnimalPayments.sql" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/PrimaFoods.Abate.Application/PrimaFoods.Abate.Application.csproj" Id="8a8a908f-959a-4c0e-894f-45b016e092d4" />
+    <Project Path="src/PrimaFoods.Abate.Domain/PrimaFoods.Abate.Domain.csproj" />
+    <Project Path="src/PrimaFoods.Abate.Infrastructure/PrimaFoods.Abate.Infrastructure.csproj" Id="3da5258f-f8ca-4530-a73f-37f97870e0b1" />
+    <Project Path="src/PrimaFoods.Abate.Web/PrimaFoods.Abate.Web.csproj" Id="37696092-8f7a-4293-a76e-85b72bc20600" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/PrimaFoods.Abate.IntegrationTests/PrimaFoods.Abate.IntegrationTests.csproj" />
+    <Project Path="tests/PrimaFoods.Abate.UnitTests/PrimaFoods.Abate.UnitTests.csproj" />
+  </Folder>
+</Solution>

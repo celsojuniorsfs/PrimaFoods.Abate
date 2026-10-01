@@ -1,0 +1,41 @@
+﻿@model IReadOnlyList<AnimalPaymentDetail>
+
+<table id="animals-table" class="table table-striped table-hover align-middle text-nowrap w-100">
+    <thead>
+        <tr>
+            <th>Animal</th>
+            <th>Pedido</th>
+            <th>Sexo</th>
+            <th class="text-end">Dentes</th>
+            <th class="text-end">Peso (kg)</th>
+            <th class="text-end">Arrobas</th>
+            <th class="text-end">@@ base</th>
+            <th class="text-end">Valor base</th>
+            <th class="text-end">Ágio</th>
+            <th class="text-end">Deságio</th>
+            <th class="text-end">Valor a pagar</th>
+            <th>Ajuste</th>
+            <th>Motivo</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var animal in Model)
+        {
+            <tr>
+                <td>@animal.AnimalId</td>
+                <td>@animal.OrderId</td>
+                <td>@animal.Sex.ToDisplay()</td>
+                <td class="text-end">@animal.TeethCount</td>
+                <td class="text-end" data-order="@animal.Weight.ToInvariant()">@animal.Weight.ToString("N2")</td>
+                <td class="text-end" data-order="@animal.Arrobas.ToInvariant()">@animal.Arrobas.ToString("N2")</td>
+                <td class="text-end" data-order="@animal.BaseArrobaPrice.ToInvariant()">@animal.BaseArrobaPrice.ToString("C")</td>
+                <td class="text-end" data-order="@animal.BaseAmount.ToInvariant()">@animal.BaseAmount.ToString("C")</td>
+                <td class="text-end" data-order="@animal.PremiumAmount.ToInvariant()">@AmountHtml.Premium(animal.PremiumAmount)</td>
+                <td class="text-end" data-order="@animal.DiscountAmount.ToInvariant()">@AmountHtml.Discount(animal.DiscountAmount)</td>
+                <td class="text-end fw-semibold" data-order="@animal.AmountToPay.ToInvariant()">@animal.AmountToPay.ToString("C")</td>
+                <td><span class="badge @animal.AdjustmentType.ToBadgeClass()">@animal.AdjustmentType.ToDisplay()</span></td>
+                <td>@animal.AdjustmentReason</td>
+            </tr>
+        }
+    </tbody>
+</table>

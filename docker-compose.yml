@@ -8,12 +8,17 @@ services:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "PrimaFoods@2026"
       MSSQL_PID: "Developer"
+      TZ: "America/Sao_Paulo"
     ports:
       - "14330:1433"
     volumes:
       - sqlserver-data:/var/opt/mssql
     healthcheck:
-      test: ["CMD-SHELL", '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -Q "SELECT 1" -b -o /dev/null']
+      test:
+        [
+          "CMD-SHELL",
+          '/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$MSSQL_SA_PASSWORD" -C -Q "SELECT 1" -b -o /dev/null',
+        ]
       interval: 10s
       timeout: 5s
       retries: 10

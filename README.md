@@ -66,6 +66,36 @@ Os testes de integração sobem um SQL Server próprio com Testcontainers e exig
 
 O workflow `.github/workflows/ci.yml` roda os testes unitários e os de integração, em jobs separados, a cada pull request (para qualquer branch de destino) e a cada push para `develop` e `main`. Os resultados (`.trx`) ficam como artefatos da execução.
 
+## Estrutura do repositório
+
+```
+database/                    scripts SQL aplicados em ordem (01 a 04)
+database/original/           script recebido no teste, sem alterações
+src/
+  PrimaFoods.Abate.Domain/          enums do negócio
+  PrimaFoods.Abate.Application/     casos de uso e portas
+  PrimaFoods.Abate.Infrastructure/  Dapper e SQL Server
+  PrimaFoods.Abate.Web/             controllers, views e composição
+tests/
+  PrimaFoods.Abate.UnitTests/
+  PrimaFoods.Abate.IntegrationTests/  SQL Server real com Testcontainers
+.github/workflows/ci.yml     roda os testes no GitHub Actions
+docker-compose.yml           SQL Server e carga dos scripts de database/
+```
+
+## Atendimento aos requisitos
+
+| Item | Onde |
+|---|---|
+| 1 e 1.1 a 1.4 | `dbo.spCalculateAnimalPayments` (`database/04_spCalculateAnimalPayments.sql`), com os preços e percentuais vindos da seção `Payment` |
+| 1.5 | Tabela `dbo.AnimalPayments`: valor base, ágio, deságio e valor a pagar, mais `AdjustmentType` e `AdjustmentReason` |
+| 2.1 | Aba **Resumo por pedido**: agrupa por pedido, fornecedor e sexo, com quantidade, peso, arrobas, valor total e valor unitário da @, e uma linha de total geral |
+| 2.2 e 2.3 | Cards de machos e de fêmeas, com quantidade e percentual |
+| 2.4 e 2.5 | Cards de ágio e de deságio, com quantidade, percentual e valor total |
+| 2.6 | Bootstrap 5 com AdminKit: os cards empilham no celular e as tabelas rolam na horizontal |
+| 2.7 | Ágio em verde com `+` e deságio em vermelho com `-`, nos cards, no resumo e no detalhe |
+| Extra | Aba **Detalhe por animal** (DataTables, com busca e ordenação), que mostra o motivo de cada ajuste |
+
 ## Regras de cálculo
 
 | Item | Regra |

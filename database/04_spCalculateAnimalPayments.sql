@@ -13,8 +13,8 @@ BEGIN
 
     DECLARE @KgPerArroba    NUMERIC(5,2) = 15.00;
     DECLARE @CalculatedAt   DATETIME2(0) = SYSDATETIME();
-    DECLARE @PremiumReason  VARCHAR(100) = CONCAT('Ágio de ', FORMAT(@PremiumPercentage, '0.##'), '%: animal com 0 dentes');
-    DECLARE @DiscountReason VARCHAR(100) = CONCAT('Deságio de ', FORMAT(@DiscountPercentage, '0.##'), '%: animal com 6 ou mais dentes');
+    DECLARE @PremiumReason  VARCHAR(100) = CONCAT('Ágio de ', FORMAT(@PremiumPercentage, '0.##', 'pt-BR'), '%: animal com 0 dentes');
+    DECLARE @DiscountReason VARCHAR(100) = CONCAT('Deságio de ', FORMAT(@DiscountPercentage, '0.##', 'pt-BR'), '%: animal com 6 ou mais dentes');
     DECLARE @ProcessedCount INT;
     DECLARE @SkippedCount   INT;
 
@@ -60,11 +60,12 @@ BEGIN
                                       ELSE 0 END AS NUMERIC(18,2)) AS DiscountAmount) AS adj
         WHERE a.Sex IN ('M', 'F')
           AND a.Weight IS NOT NULL
-          AND a.TeethCount IS NOT NULL;
+          AND a.TeethCount IS NOT NULL
+          AND a.OrderId IS NOT NULL;
 
         SET @ProcessedCount = @@ROWCOUNT;
 
-        -- Animais com sexo fora de M/F, peso ou dentes ausentes não geram pagamento.
+        -- Animais com sexo fora de M/F, ou sem peso, dentes ou pedido, não geram pagamento.
         SELECT @SkippedCount = COUNT(*) - @ProcessedCount FROM dbo.Animals;
 
         COMMIT TRANSACTION;

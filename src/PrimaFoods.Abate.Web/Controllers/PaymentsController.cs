@@ -32,7 +32,7 @@ public sealed class PaymentsController(ILogger<PaymentsController> logger) : Con
             if (result.SkippedAnimals > 0)
             {
                 TempData["WarningMessage"] =
-                    $"{result.SkippedAnimals:N0} animais foram ignorados por dados inválidos (sexo, peso ou dentes).";
+                    $"{result.SkippedAnimals:N0} animais foram ignorados por dados inválidos (sexo, peso, dentes ou pedido).";
             }
         }
         catch (Exception exception) when (exception is not OperationCanceledException)

@@ -73,7 +73,7 @@ public sealed partial class SqlServerFixture : IAsyncLifetime
         => ExecuteAsync("INSERT INTO dbo.Orders (OrderId, Supplier) VALUES (@id, @supplier)",
             ("@id", orderId), ("@supplier", supplier));
 
-    public Task AddAnimalAsync(int animalId, int orderId, string? sex, int? teethCount, decimal? weight)
+    public Task AddAnimalAsync(int animalId, int? orderId, string? sex, int? teethCount, decimal? weight)
         => ExecuteAsync(
             "INSERT INTO dbo.Animals (AnimalId, Sex, OrderId, TeethCount, Weight) VALUES (@id, @sex, @order, @teeth, @weight)",
             ("@id", animalId), ("@sex", sex), ("@order", orderId), ("@teeth", teethCount), ("@weight", weight));

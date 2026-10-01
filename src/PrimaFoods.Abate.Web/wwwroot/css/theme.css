@@ -44,6 +44,17 @@ a.sidebar-link {
   border-left-color: var(--pf-primary);
 }
 
+/* Menu recolhido por padrão em qualquer largura: o hambúrguer (que alterna .collapsed) abre. */
+@media (min-width: 992px) {
+  .sidebar {
+    margin-left: -260px;
+  }
+
+  .sidebar.collapsed {
+    margin-left: 0;
+  }
+}
+
 .sidebar-toggle:hover .hamburger,
 .sidebar-toggle:hover .hamburger:before,
 .sidebar-toggle:hover .hamburger:after {

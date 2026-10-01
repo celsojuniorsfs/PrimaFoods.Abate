@@ -50,6 +50,27 @@ a.sidebar-link {
   background: var(--pf-primary);
 }
 
+/* Ícone dos cards de indicador: o AdminKit fixa o azul com !important, então as variantes são definidas aqui. */
+.stat {
+  --stat-bg: var(--bs-primary-bg-subtle);
+  --stat-color: var(--pf-primary);
+  background: var(--stat-bg);
+}
+
+.stat svg {
+  color: var(--stat-color) !important;
+}
+
+.stat.text-success {
+  --stat-bg: var(--bs-success-bg-subtle);
+  --stat-color: var(--bs-success);
+}
+
+.stat.text-danger {
+  --stat-bg: var(--bs-danger-bg-subtle);
+  --stat-color: var(--bs-danger);
+}
+
 /* Foco de campos (busca e seletor de linhas do DataTables) */
 .form-control:focus,
 .form-select:focus {
